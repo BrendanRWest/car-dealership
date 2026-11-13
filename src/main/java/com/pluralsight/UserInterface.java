@@ -100,7 +100,7 @@ public class UserInterface {
     }
 
     public void processGetAllVehiclesRequest(){
-
+        displayVehicles(dealership.getAllVehicles());
     }
 
     public void processAddVehicleRequest(){
@@ -111,8 +111,7 @@ public class UserInterface {
 
     }
 
-    private void displayVehicles(Dealership dealership){
-        List<Vehicle> vehicles = dealership.getAllVehicles();
+    private void displayVehicles(List<Vehicle> vehicles){
 
         for (Vehicle vehicle : vehicles) {
             System.out.println(vehicle);
