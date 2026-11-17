@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class UserInterface {
 
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
+        fileManager.saveDealership(dealership);
     }
 
     public void display(){
@@ -68,7 +70,7 @@ public class UserInterface {
                     break;
                 case "99":
                     condition = false;
-                    System.out.println("\nExiting");
+                    System.out.println("\nExiting...");
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -138,6 +140,10 @@ public class UserInterface {
 
     public void processGetByVehicleTypeRequest(Scanner scan){
 
+        System.out.print("Please enter the vehicle type for your search: ");
+        String vehicleType = scan.nextLine();
+
+        displayVehicles(dealership.getVehiclesByType(vehicleType));
     }
 
     public void processGetAllVehiclesRequest(Scanner scan){
@@ -146,10 +152,53 @@ public class UserInterface {
 
     public void processAddVehicleRequest(Scanner scan){
 
+        System.out.print("Enter the vehicle vin name: ");
+        int vin = scan.nextInt();
+        scan.nextLine();
+
+        System.out.print("Enter the vehicle year: ");
+        int year = scan.nextInt();
+        scan.nextLine();
+
+        System.out.print("Enter the vehicle make: ");
+        String make = scan.nextLine();
+
+        System.out.print("Enter the vehicle model: ");
+        String model = scan.nextLine();
+
+        System.out.print("Enter the vehicle type: ");
+        String vehicleType = scan.nextLine();
+
+        System.out.print("Enter the vehicle color: ");
+        String color = scan.nextLine();
+
+        System.out.print("Enter the number of miles on the vehicle odometer: ");
+        int mileage = scan.nextInt();
+        scan.nextLine();
+
+        System.out.print("Enter the price of the vehicle: ");
+        BigDecimal price = scan.nextBigDecimal();
+
+        Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, mileage, price);
+        dealership.addVehicle(vehicle);
+        init();
+
     }
 
     public void processRemoveVehicleRequest(Scanner scan){
+        ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
+        int vinChoice;
 
+        System.out.println("Please enter the vin of the vehicle you'd like to remove: ");
+        vinChoice = scan.nextInt();
+        scan.nextLine();
+
+        for (Vehicle vehicle : vehicles) {
+            if(vehicle.getVin() == vinChoice){
+                dealership.removeVehicle(vehicle);
+            }
+        }
+        init();
     }
 
     private void displayVehicles(List<Vehicle> vehicles){
