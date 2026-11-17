@@ -125,6 +125,15 @@ public class UserInterface {
 
     public void processGetByMileageRequest(Scanner scan){
 
+        System.out.print("Please enter the minimum miles: ");
+        int minMiles = scan.nextInt();
+        scan.nextLine();
+
+        System.out.print("Please enter the maximum miles: ");
+        int maxMiles = scan.nextInt();
+        scan.nextLine();
+
+        displayVehicles(dealership.getVehiclesByMileage(minMiles, maxMiles));
     }
 
     public void processGetByVehicleTypeRequest(Scanner scan){
