@@ -24,7 +24,7 @@ public class UserInterface {
         boolean condition = true;
 
         while(condition){
-            System.out.println("Please select an option from the list below");
+            System.out.println("\nPlease select an option from the list below");
             System.out.println("1 - Find vehicles within a price range");
             System.out.println("2 - Find vehicles by make / model");
             System.out.println("3 - Find vehicles by year range");
@@ -68,6 +68,7 @@ public class UserInterface {
                     break;
                 case "99":
                     condition = false;
+                    System.out.println("\nExiting");
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -116,6 +117,10 @@ public class UserInterface {
 
     public void processGetByColorRequest(Scanner scan){
 
+        System.out.print("Please enter the color you're searching for: ");
+        String color = scan.nextLine();
+
+        displayVehicles(dealership.getVehiclesByColor(color));
     }
 
     public void processGetByMileageRequest(Scanner scan){
@@ -141,7 +146,7 @@ public class UserInterface {
     private void displayVehicles(List<Vehicle> vehicles){
 
         for (Vehicle vehicle : vehicles) {
-            System.out.println(vehicle + "\n");
+            System.out.println("\n" + vehicle);
         }
     }
 }
