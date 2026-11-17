@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,31 +40,31 @@ public class UserInterface {
 
             switch(choice){
                 case "1":
-                    processGetByPriceRequest();
+                    processGetByPriceRequest(scan);
                     break;
                 case "2":
-                    processGetByMakeModelRequest();
+                    processGetByMakeModelRequest(scan);
                     break;
                 case "3":
-                    processGetByYearRequest();
+                    processGetByYearRequest(scan);
                     break;
                 case "4":
-                    processGetByColorRequest();
+                    processGetByColorRequest(scan);
                     break;
                 case "5":
-                    processGetByMileageRequest();
+                    processGetByMileageRequest(scan);
                     break;
                 case "6":
-                    processGetByVehicleTypeRequest();
+                    processGetByVehicleTypeRequest(scan);
                     break;
                 case "7":
-                    processGetAllVehiclesRequest();
+                    processGetAllVehiclesRequest(scan);
                     break;
                 case "8":
-                    processAddVehicleRequest();
+                    processAddVehicleRequest(scan);
                     break;
                 case "9":
-                    processRemoveVehicleRequest();
+                    processRemoveVehicleRequest(scan);
                     break;
                 case "99":
                     condition = false;
@@ -73,48 +74,58 @@ public class UserInterface {
                     break;
             }
         }
+        scan.close();
     }
 
-    public void processGetByPriceRequest(){
+    public void processGetByPriceRequest(Scanner scan){
 
+        System.out.print("Please enter the minimum price you're searching for: ");
+        BigDecimal min = scan.nextBigDecimal();
+        scan.nextLine();
+
+        System.out.print("Please enter the maximum price you're searching for: ");
+        BigDecimal max = scan.nextBigDecimal();
+        scan.nextLine();
+
+        displayVehicles(dealership.getVehiclesByPrice(min, max));
     }
 
-    public void processGetByMakeModelRequest(){
-
-    }
-
-    public void processGetByYearRequest(){
-
-    }
-
-    public void processGetByColorRequest(){
-
-    }
-
-    public void processGetByMileageRequest(){
-
-    }
-
-    public void processGetByVehicleTypeRequest(){
+    public void processGetByMakeModelRequest(Scanner scan){
 
     }
 
-    public void processGetAllVehiclesRequest(){
+    public void processGetByYearRequest(Scanner scan){
+
+    }
+
+    public void processGetByColorRequest(Scanner scan){
+
+    }
+
+    public void processGetByMileageRequest(Scanner scan){
+
+    }
+
+    public void processGetByVehicleTypeRequest(Scanner scan){
+
+    }
+
+    public void processGetAllVehiclesRequest(Scanner scan){
         displayVehicles(dealership.getAllVehicles());
     }
 
-    public void processAddVehicleRequest(){
+    public void processAddVehicleRequest(Scanner scan){
 
     }
 
-    public void processRemoveVehicleRequest(){
+    public void processRemoveVehicleRequest(Scanner scan){
 
     }
 
     private void displayVehicles(List<Vehicle> vehicles){
 
         for (Vehicle vehicle : vehicles) {
-            System.out.println(vehicle);
+            System.out.println(vehicle + "\n");
         }
     }
 }

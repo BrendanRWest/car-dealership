@@ -18,22 +18,39 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
-        return null;
+        List<Vehicle> filteredVehicles = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if((vehicle.getPrice().compareTo(min) > 0) && vehicle.getPrice().compareTo(max) < 0){
+                filteredVehicles.add(vehicle);
+            }
+        }
+        return filteredVehicles;
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+        List<Vehicle> filteredVehicles = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if(vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)){
+                filteredVehicles.add(vehicle);
+            }
+        }
+        return filteredVehicles;
     }
 
     public List<Vehicle> getVehiclesByYear(int min, int max) {
+
         return null;
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
+
         return null;
     }
 
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
+
         return null;
     }
 
