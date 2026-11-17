@@ -32,7 +32,7 @@ public class Dealership {
         List<Vehicle> filteredVehicles = new ArrayList<>();
 
         for (Vehicle vehicle : inventory) {
-            if(vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)){
+            if(vehicle.getMake().equalsIgnoreCase(make) || vehicle.getModel().equalsIgnoreCase(model)){
                 filteredVehicles.add(vehicle);
             }
         }
@@ -40,8 +40,14 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehiclesByYear(int min, int max) {
+        List<Vehicle> filteredVehicles = new ArrayList<>();
 
-        return null;
+        for (Vehicle vehicle : inventory) {
+            if(vehicle.getYear() >= min && vehicle.getYear() <= max){
+                filteredVehicles.add(vehicle);
+            }
+        }
+        return filteredVehicles;
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
