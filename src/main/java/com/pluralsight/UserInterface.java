@@ -168,7 +168,7 @@ public class UserInterface {
             int max = scan.nextInt();
             scan.nextLine();
 
-            displayVehicles(dealership.getVehiclesByYear(min, max));
+            displayVehicles(dealership.getVehiclesByMileage(min, max));
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input! You must enter numbers for the mileages.");
