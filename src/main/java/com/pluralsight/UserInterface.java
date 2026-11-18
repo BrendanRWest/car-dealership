@@ -16,25 +16,51 @@ public class UserInterface {
         this.dealership = fileManager.getDealership();
     }
 
+    private void displayWelcomeScreen() {
+        System.out.println("==========================================");
+        System.out.println("            D & B Used Cars");
+        System.out.println("==========================================");
+
+        System.out.println("           ______");
+        System.out.println("      ____/|_||_\\`.__");
+        System.out.println("     (   _        _ _\\");
+        System.out.println("     =`-(_)--(_)-'");
+
+        System.out.println("\nWelcome to the Dealership Management System!");
+        System.out.print("\nLoading inventory [");
+
+        for (int i = 0; i < 20; i++) {
+            System.out.print("#");
+        }
+
+        System.out.println("] 100%");
+        System.out.println("Inventory loaded successfully.");
+    }
+
     public void display() {
         init();
+        displayWelcomeScreen();
+
         Scanner scan = new Scanner(System.in);
         String choice;
         boolean condition = true;
 
         while (condition) {
-            System.out.println("\nPlease select an option from the list below");
-            System.out.println("1 - Find vehicles within a price range");
-            System.out.println("2 - Find vehicles by make / model");
-            System.out.println("3 - Find vehicles by year range");
-            System.out.println("4 - Find vehicles by color");
-            System.out.println("5 - Find vehicles by mileage range");
-            System.out.println("6 - Find vehicles by type (car, truck, SUV, van)");
-            System.out.println("7 - List ALL vehicles");
-            System.out.println("8 - Add a vehicle");
-            System.out.println("9 - Remove a vehicle");
-            System.out.println("99 - Quit");
-            System.out.print("Your choice: ");
+            System.out.println("\n==========================================");
+            System.out.println("         D & B Used Cars - MENU");
+            System.out.println("==========================================");
+            System.out.println("1  - Search Inventory by Price");
+            System.out.println("2  - Search Inventory by Make / Model");
+            System.out.println("3  - Search Inventory by Year");
+            System.out.println("4  - Search Inventory by Color");
+            System.out.println("5  - Search Inventory by Mileage");
+            System.out.println("6  - Search Inventory by Vehicle Type");
+            System.out.println("7  - View Entire Inventory");
+            System.out.println("8  - Add Vehicle to Inventory");
+            System.out.println("9  - Remove Vehicle from Inventory");
+            System.out.println("99 - Close Dealership System");
+            System.out.println("------------------------------------------");
+            System.out.print("Your Choice: ");
             choice = scan.nextLine();
 
             switch (choice) {
@@ -166,7 +192,7 @@ public class UserInterface {
     public void processAddVehicleRequest(Scanner scan) {
 
         try {
-            System.out.print("Enter the vehicle vin name: ");
+            System.out.print("Enter the vehicle vin: ");
             int vin = scan.nextInt();
             scan.nextLine();
 
@@ -234,6 +260,7 @@ public class UserInterface {
         for (Vehicle vehicle : vehicles) {
             if (vehicle.getVin() == vinChoice) {
                 dealership.removeVehicle(vehicle);
+                System.out.println("Vehicle successfully removed!");
                 break;
             }
         }
@@ -244,8 +271,26 @@ public class UserInterface {
 
     private void displayVehicles(List<Vehicle> vehicles) {
 
+        if (vehicles.isEmpty()) {
+            System.out.println("\nNo vehicles found.");
+            return;
+        }
+
+        System.out.println("\n==================== INVENTORY ====================");
+
+        System.out.printf("%-8s %-6s %-12s %-14s %-8s %12s%n",
+                "VIN", "YEAR", "MAKE", "MODEL", "TYPE", "PRICE");
+
+        System.out.println("---------------------------------------------------------------");
+
         for (Vehicle vehicle : vehicles) {
-            System.out.println("\n" + vehicle);
+            System.out.printf("%-8d %-6d %-12s %-14s %-8s $%,11.2f%n",
+                    vehicle.getVin(),
+                    vehicle.getYear(),
+                    vehicle.getMake(),
+                    vehicle.getModel(),
+                    vehicle.getVehicleType(),
+                    vehicle.getPrice());
         }
     }
 }
