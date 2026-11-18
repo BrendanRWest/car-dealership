@@ -90,7 +90,7 @@ public class UserInterface {
             displayVehicles(dealership.getVehiclesByPrice(min, max));
 
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input! You must enter a number.");
+            System.out.println("Invalid input! You must enter numbers for the prices.");
             scan.nextLine();
         }
     }
@@ -106,17 +106,22 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByMakeModel(make, model));
     }
 
-    public void processGetByYearRequest(Scanner scan){
+    public void processGetByYearRequest(Scanner scan) {
+        try {
+            System.out.print("Please enter the earliest year: ");
+            int minYear = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Please enter the earliest year: ");
-        int minYear = scan.nextInt();
-        scan.nextLine();
+            System.out.print("Please enter the latest year: ");
+            int maxYear = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Please enter the latest year: ");
-        int maxYear = scan.nextInt();
-        scan.nextLine();
+            displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
 
-        displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! You must enter a number for the year.");
+            scan.nextLine();
+        }
     }
 
     public void processGetByColorRequest(Scanner scan){
@@ -127,17 +132,22 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByColor(color));
     }
 
-    public void processGetByMileageRequest(Scanner scan){
+    public void processGetByMileageRequest(Scanner scan) {
+        try {
+            System.out.print("Please enter the minimum mileage: ");
+            int min = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Please enter the minimum miles: ");
-        int minMiles = scan.nextInt();
-        scan.nextLine();
+            System.out.print("Please enter the maximum mileage: ");
+            int max = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Please enter the maximum miles: ");
-        int maxMiles = scan.nextInt();
-        scan.nextLine();
+            displayVehicles(dealership.getVehiclesByYear(min, max));
 
-        displayVehicles(dealership.getVehiclesByMileage(minMiles, maxMiles));
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! You must enter numbers for the mileages.");
+            scan.nextLine();
+        }
     }
 
     public void processGetByVehicleTypeRequest(Scanner scan){
@@ -149,6 +159,7 @@ public class UserInterface {
     }
 
     public void processGetAllVehiclesRequest(Scanner scan){
+
         displayVehicles(dealership.getAllVehicles());
     }
 
