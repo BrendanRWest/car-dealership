@@ -17,6 +17,18 @@ public class Dealership {
         this.address = address;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public List<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
         List<Vehicle> filteredVehicles = new ArrayList<>();
 

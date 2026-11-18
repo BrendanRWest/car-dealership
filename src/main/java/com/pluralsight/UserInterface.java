@@ -9,9 +9,6 @@ public class UserInterface {
 
     private Dealership dealership;
 
-    public void UserInterface(){
-    }
-
     private void init(){
 
         DealershipFileManager fileManager = new DealershipFileManager();
@@ -188,11 +185,26 @@ public class UserInterface {
 
     public void processRemoveVehicleRequest(Scanner scan){
         ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
-        int vinChoice;
 
         System.out.println("Please enter the vin of the vehicle you'd like to remove: ");
-        vinChoice = scan.nextInt();
-        scan.nextLine();
+        int vinChoice;
+
+        while (true) {
+            System.out.print("Enter vehicle VIN: ");
+
+            try {
+                vinChoice = Integer.parseInt(scan.nextLine());
+
+                if (vinChoice > 0) {
+                    break;
+                }
+
+                System.out.println("VIN must be positive.");
+
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number.");
+            }
+        }
 
         for (Vehicle vehicle : vehicles) {
             if(vehicle.getVin() == vinChoice){
