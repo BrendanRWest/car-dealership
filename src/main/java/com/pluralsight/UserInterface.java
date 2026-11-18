@@ -10,19 +10,19 @@ public class UserInterface {
 
     private Dealership dealership;
 
-    private void init(){
+    private void init() {
 
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
     }
 
-    public void display(){
+    public void display() {
         init();
         Scanner scan = new Scanner(System.in);
         String choice;
         boolean condition = true;
 
-        while(condition){
+        while (condition) {
             System.out.println("\nPlease select an option from the list below");
             System.out.println("1 - Find vehicles within a price range");
             System.out.println("2 - Find vehicles by make / model");
@@ -37,7 +37,7 @@ public class UserInterface {
             System.out.print("Your choice: ");
             choice = scan.nextLine();
 
-            switch(choice){
+            switch (choice) {
                 case "1":
                     processGetByPriceRequest(scan);
                     break;
@@ -95,7 +95,7 @@ public class UserInterface {
         }
     }
 
-    public void processGetByMakeModelRequest(Scanner scan){
+    public void processGetByMakeModelRequest(Scanner scan) {
 
         System.out.print("Please enter the make you're searching for: ");
         String make = scan.nextLine();
@@ -124,7 +124,7 @@ public class UserInterface {
         }
     }
 
-    public void processGetByColorRequest(Scanner scan){
+    public void processGetByColorRequest(Scanner scan) {
 
         System.out.print("Please enter the color you're searching for: ");
         String color = scan.nextLine();
@@ -150,7 +150,7 @@ public class UserInterface {
         }
     }
 
-    public void processGetByVehicleTypeRequest(Scanner scan){
+    public void processGetByVehicleTypeRequest(Scanner scan) {
 
         System.out.print("Please enter the vehicle type for your search: ");
         String vehicleType = scan.nextLine();
@@ -158,49 +158,57 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByType(vehicleType));
     }
 
-    public void processGetAllVehiclesRequest(Scanner scan){
+    public void processGetAllVehiclesRequest(Scanner scan) {
 
         displayVehicles(dealership.getAllVehicles());
     }
 
-    public void processAddVehicleRequest(Scanner scan){
+    public void processAddVehicleRequest(Scanner scan) {
 
-        System.out.print("Enter the vehicle vin name: ");
-        int vin = scan.nextInt();
-        scan.nextLine();
+        try {
+            System.out.print("Enter the vehicle vin name: ");
+            int vin = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Enter the vehicle year: ");
-        int year = scan.nextInt();
-        scan.nextLine();
+            System.out.print("Enter the vehicle year: ");
+            int year = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Enter the vehicle make: ");
-        String make = scan.nextLine();
+            System.out.print("Enter the vehicle make: ");
+            String make = scan.nextLine();
 
-        System.out.print("Enter the vehicle model: ");
-        String model = scan.nextLine();
+            System.out.print("Enter the vehicle model: ");
+            String model = scan.nextLine();
 
-        System.out.print("Enter the vehicle type: ");
-        String vehicleType = scan.nextLine();
+            System.out.print("Enter the vehicle type: ");
+            String vehicleType = scan.nextLine();
 
-        System.out.print("Enter the vehicle color: ");
-        String color = scan.nextLine();
+            System.out.print("Enter the vehicle color: ");
+            String color = scan.nextLine();
 
-        System.out.print("Enter the number of miles on the vehicle odometer: ");
-        int mileage = scan.nextInt();
-        scan.nextLine();
+            System.out.print("Enter the number of miles on the vehicle odometer: ");
+            int mileage = scan.nextInt();
+            scan.nextLine();
 
-        System.out.print("Enter the price of the vehicle: ");
-        BigDecimal price = scan.nextBigDecimal();
+            System.out.print("Enter the price of the vehicle: ");
+            BigDecimal price = scan.nextBigDecimal();
+            scan.nextLine();
 
-        Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, mileage, price);
-        dealership.addVehicle(vehicle);
+            Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, mileage, price);
+            dealership.addVehicle(vehicle);
 
-        DealershipFileManager fileManager = new DealershipFileManager();
-        fileManager.saveDealership(dealership);
+            DealershipFileManager fileManager = new DealershipFileManager();
+            fileManager.saveDealership(dealership);
+            System.out.println("Vehicle added successfully!");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Could not add vehicle!");
+            scan.nextLine();
+        }
 
     }
 
-    public void processRemoveVehicleRequest(Scanner scan){
+    public void processRemoveVehicleRequest(Scanner scan) {
         ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
 
         System.out.println("Please enter the vin of the vehicle you'd like to remove: ");
@@ -224,7 +232,7 @@ public class UserInterface {
         }
 
         for (Vehicle vehicle : vehicles) {
-            if(vehicle.getVin() == vinChoice){
+            if (vehicle.getVin() == vinChoice) {
                 dealership.removeVehicle(vehicle);
                 break;
             }
@@ -234,7 +242,7 @@ public class UserInterface {
         fileManager.saveDealership(dealership);
     }
 
-    private void displayVehicles(List<Vehicle> vehicles){
+    private void displayVehicles(List<Vehicle> vehicles) {
 
         for (Vehicle vehicle : vehicles) {
             System.out.println("\n" + vehicle);
