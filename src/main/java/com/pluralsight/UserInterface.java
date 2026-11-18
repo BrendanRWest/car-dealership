@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -76,17 +77,22 @@ public class UserInterface {
         scan.close();
     }
 
-    public void processGetByPriceRequest(Scanner scan){
+    public void processGetByPriceRequest(Scanner scan) {
+        try {
+            System.out.print("Please enter the minimum price: ");
+            BigDecimal min = scan.nextBigDecimal();
+            scan.nextLine();
 
-        System.out.print("Please enter the minimum price you're searching for: ");
-        BigDecimal min = scan.nextBigDecimal();
-        scan.nextLine();
+            System.out.print("Please enter the maximum price: ");
+            BigDecimal max = scan.nextBigDecimal();
+            scan.nextLine();
 
-        System.out.print("Please enter the maximum price you're searching for: ");
-        BigDecimal max = scan.nextBigDecimal();
-        scan.nextLine();
+            displayVehicles(dealership.getVehiclesByPrice(min, max));
 
-        displayVehicles(dealership.getVehiclesByPrice(min, max));
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! You must enter a number.");
+            scan.nextLine();
+        }
     }
 
     public void processGetByMakeModelRequest(Scanner scan){
