@@ -16,7 +16,6 @@ public class UserInterface {
 
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
-        fileManager.saveDealership(dealership);
     }
 
     public void display(){
@@ -181,7 +180,9 @@ public class UserInterface {
 
         Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, mileage, price);
         dealership.addVehicle(vehicle);
-        init();
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
 
     }
 
@@ -196,9 +197,12 @@ public class UserInterface {
         for (Vehicle vehicle : vehicles) {
             if(vehicle.getVin() == vinChoice){
                 dealership.removeVehicle(vehicle);
+                break;
             }
         }
-        init();
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
     }
 
     private void displayVehicles(List<Vehicle> vehicles){

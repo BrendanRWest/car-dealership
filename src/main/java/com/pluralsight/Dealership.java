@@ -21,7 +21,7 @@ public class Dealership {
         List<Vehicle> filteredVehicles = new ArrayList<>();
 
         for (Vehicle vehicle : inventory) {
-            if((vehicle.getPrice().compareTo(min) > 0) && vehicle.getPrice().compareTo(max) < 0){
+            if((vehicle.getPrice().compareTo(min) >= 0) && vehicle.getPrice().compareTo(max) <= 0){
                 filteredVehicles.add(vehicle);
             }
         }
